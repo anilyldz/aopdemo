@@ -20,4 +20,10 @@ public class DemoLoggingAspect {
         System.out.println("\n ========>>> Executing @Before advice on AccountDAO addAccount()");
     }
 
+    //Return type Expression
+    @Before("execution(void add*())")
+    public void beforeAddAccountAdviceReturnType() {
+        System.out.println("\n ========>>> Executing @Before advice on addAccount()");
+    }
+
 }

@@ -8,10 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoLoggingAspect {
 
-    //Pointcut Expression
+    //Wildcard Expression
     @Before("execution(* add*())")
     public void beforeAddAccountAdvice() {
         System.out.println("\n ========>>> Executing @Before advice on addAccount()");
+    }
+
+    @Before("execution(public void com.anily.aopdemo.dao.AccountDAO.addAccount())")
+    public void beforeAddAccountAdviceAccountDAO() {
+        System.out.println("\n ========>>> Executing @Before advice on AccountDAO addAccount()");
     }
 
 }

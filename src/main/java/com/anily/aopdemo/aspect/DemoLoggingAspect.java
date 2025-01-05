@@ -14,6 +14,12 @@ public class DemoLoggingAspect {
         System.out.println("\n ========>>> Executing @Before advice on addAccount()");
     }
 
+    //Parameter Expression
+    @Before("execution(* add*(com.anily.aopdemo.Account))")
+    public void beforeAddAccountAdviceParameterExp() {
+        System.out.println("\n ========>>> Executing @Before advice on addAccount(Account)");
+    }
+
     //Package Expression
     @Before("execution(public void com.anily.aopdemo.dao.AccountDAO.addAccount())")
     public void beforeAddAccountAdviceAccountDAO() {

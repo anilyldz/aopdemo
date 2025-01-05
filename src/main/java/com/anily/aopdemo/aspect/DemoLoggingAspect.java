@@ -33,6 +33,12 @@ public class DemoLoggingAspect {
         System.out.println("\n ========>>> Executing @Before advice on AccountDAO addAccount()");
     }
 
+    //Wildcard Package Expression return type + package + * + * + all number of parameters
+    @Before("execution(* com.anily.aopdemo.dao.*.*(..))")
+    public void beforeAddAccountAdviceAccountDAOPackage() {
+        System.out.println("\n ========>>> Executing @Before advice on AccountDAO addAccount()");
+    }
+
     //Return type Expression
     @Before("execution(void add*())")
     public void beforeAddAccountAdviceReturnType() {

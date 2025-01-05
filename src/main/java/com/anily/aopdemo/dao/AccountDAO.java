@@ -6,4 +6,6 @@ public interface AccountDAO {
 
     void addAccount(Account account);
 
+    void addAccountVIP(Account account, boolean vipFlag);
+
 }

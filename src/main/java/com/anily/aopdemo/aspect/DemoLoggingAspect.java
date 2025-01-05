@@ -21,6 +21,7 @@ public class DemoLoggingAspect {
     }
 
     //Any Parameter Expression
+    //@Before("execution(* add*(..))") everyone passes
     @Before("execution(* add*(com.anily.aopdemo.Account, ..))")
     public void beforeAddAccountAdviceAnyParameterExp() {
         System.out.println("\n ========>>> Executing @Before advice on addAccount(Account)");

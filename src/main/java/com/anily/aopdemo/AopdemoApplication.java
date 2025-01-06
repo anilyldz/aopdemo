@@ -25,12 +25,9 @@ public class AopdemoApplication {
 	}
 
 	private void demoBeforeAdvice(AccountDAO accountDAO, MemberShipDAO memberShipDAO) {
-
-		/* For DemoLoggingAspect
 		accountDAO.addAccount(new Account());
 		accountDAO.addAccountVIP(new Account(), true);
 		memberShipDAO.addAccount();
-		 */
 	}
 
 

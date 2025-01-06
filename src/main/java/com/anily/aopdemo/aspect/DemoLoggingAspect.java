@@ -15,12 +15,12 @@ public class DemoLoggingAspect {
 
     @Before("forDaoPackage()")
     public void beforeAddAccountAdviceAccountDAOPackage() {
-        System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation");
+        System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation \n");
     }
 
     @After("forDaoPackage()")
     public void afterAddAccountAdviceAccountDAOPackage() {
-        System.out.println("\n ========>>> Executing @After advice on AccountDAO package with Pointcut Annotation");
+        System.out.println("\n ========>>> Executing @After advice on AccountDAO package with Pointcut Annotation \n");
     }
 
     /*

@@ -25,6 +25,12 @@ public class AopdemoApplication {
 	}
 
 	private void demoBeforeAdvice(AccountDAO accountDAO, MemberShipDAO memberShipDAO) {
+		accountDAO.setName("foobar");
+		accountDAO.setServiceCode("siver");
+
+		String name = accountDAO.getName();
+		String code = accountDAO.getServiceCode();
+
 		accountDAO.addAccount(new Account());
 		accountDAO.addAccountVIP(new Account(), true);
 		memberShipDAO.addAccount();

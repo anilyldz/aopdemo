@@ -8,4 +8,12 @@ public interface AccountDAO {
 
     void addAccountVIP(Account account, boolean vipFlag);
 
+    String getName();
+
+    void setName(String name);
+
+    String getServiceCode();
+
+    void setServiceCode(String serviceCode);
+
 }

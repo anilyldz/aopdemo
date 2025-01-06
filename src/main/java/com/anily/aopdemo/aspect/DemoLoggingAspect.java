@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoLoggingAspect {
 
+    /*
+
     //Wildcard Expression
     @Before("execution(* add*())")
     public void beforeAddAccountAdvice() {
@@ -45,4 +47,5 @@ public class DemoLoggingAspect {
         System.out.println("\n ========>>> Executing @Before advice on addAccount()");
     }
 
+     */
 }

@@ -1,5 +1,6 @@
 package com.anily.aopdemo.aspect;
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -15,6 +16,11 @@ public class DemoLoggingAspect {
     @Before("forDaoPackage()")
     public void beforeAddAccountAdviceAccountDAOPackage() {
         System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation");
+    }
+
+    @After("forDaoPackage()")
+    public void afterAddAccountAdviceAccountDAOPackage() {
+        System.out.println("\n ========>>> Executing @After advice on AccountDAO package with Pointcut Annotation");
     }
 
     /*

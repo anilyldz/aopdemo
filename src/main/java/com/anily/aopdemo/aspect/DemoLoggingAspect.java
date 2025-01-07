@@ -13,9 +13,21 @@ public class DemoLoggingAspect {
     @Pointcut("execution(* com.anily.aopdemo.dao.*.*(..))")
     private void forDaoPackage(){}
 
-    @Before("forDaoPackage()")
+    //Pointcut for getters
+    @Pointcut("execution(* com.anily.aopdemo.dao.*.get*(..))")
+    private void getter(){}
+
+    //Pointcut for setters
+    @Pointcut("execution(* com.anily.aopdemo.dao.*.set*(..))")
+    private void setter(){}
+
+    //Excluding getter and setter pointcut expressions
+    @Pointcut("forDaoPackage() && !(getter() || setter())")
+    public void beforeAddAccountAdviceNoGetterSetter() {}
+
+    @Before("beforeAddAccountAdviceNoGetterSetter()")
     public void beforeAddAccountAdviceAccountDAOPackage() {
-        System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation \n");
+        System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation no getter setter \n");
     }
 
     @After("forDaoPackage()")

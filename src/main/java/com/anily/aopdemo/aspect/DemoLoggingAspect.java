@@ -1,41 +1,26 @@
 package com.anily.aopdemo.aspect;
 
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(1)
 public class DemoLoggingAspect {
 
-    @Pointcut("execution(* com.anily.aopdemo.dao.*.*(..))")
-    private void forDaoPackage(){}
-
-    //Pointcut for getters
-    @Pointcut("execution(* com.anily.aopdemo.dao.*.get*(..))")
-    private void getter(){}
-
-    //Pointcut for setters
-    @Pointcut("execution(* com.anily.aopdemo.dao.*.set*(..))")
-    private void setter(){}
-
-    //Excluding getter and setter pointcut expressions
-    @Pointcut("forDaoPackage() && !(getter() || setter())")
-    public void beforeAddAccountAdviceNoGetterSetter() {}
-
-    @Before("beforeAddAccountAdviceNoGetterSetter()")
+    @Before("com.anily.aopdemo.aspect.AopExpressionsUtil.beforeAddAccountAdviceNoGetterSetter()")
     public void beforeAddAccountAdviceAccountDAOPackage() {
         System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation no getter setter \n");
     }
+
+    /*
 
     @After("forDaoPackage()")
     public void afterAddAccountAdviceAccountDAOPackage() {
         System.out.println("\n ========>>> Executing @After advice on AccountDAO package with Pointcut Annotation \n");
     }
-
-    /*
 
     //Wildcard Expression
     @Before("execution(* add*())")

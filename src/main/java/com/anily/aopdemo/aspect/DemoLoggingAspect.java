@@ -1,7 +1,10 @@
 package com.anily.aopdemo.aspect;
 
+import com.anily.aopdemo.Account;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +14,23 @@ import org.springframework.stereotype.Component;
 public class DemoLoggingAspect {
 
     @Before("com.anily.aopdemo.aspect.AopExpressionsUtil.beforeAddAccountAdviceNoGetterSetter()")
-    public void beforeAddAccountAdviceAccountDAOPackage() {
+    public void beforeAddAccountAdviceAccountDAOPackage(JoinPoint joinPoint) {
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+
+        System.out.println("Method: " + methodSignature);
+
+        Object[] args = joinPoint.getArgs();
+
+        for (Object arg : args) {
+            System.out.println(arg);
+            if (arg instanceof Account) {
+                Account account = (Account) arg;
+                System.out.println("Account name: " + account.getName());
+                System.out.println("Account level: " + account.getLevel());
+            }
+        }
+
         System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation no getter setter \n");
     }
 

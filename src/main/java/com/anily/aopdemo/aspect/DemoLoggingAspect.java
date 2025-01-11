@@ -2,16 +2,27 @@ package com.anily.aopdemo.aspect;
 
 import com.anily.aopdemo.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Aspect
 @Component
 @Order(1)
 public class DemoLoggingAspect {
+
+    @AfterReturning(pointcut = "execution(* com.anily.aopdemo.dao.AccountDAO.findAccounts(..))",
+                    returning = "result")
+    public void afterReturningFindAccountAdvice(JoinPoint joinPoint, List<Account> result) {
+        String method = joinPoint.getSignature().toString();
+        System.out.println("\n=======>>> Executing @AfterReturning on method : " + method);
+        System.out.println("\n=======>>> Result is : " + result);
+    }
 
     @Before("com.anily.aopdemo.aspect.AopExpressionsUtil.beforeAddAccountAdviceNoGetterSetter()")
     public void beforeAddAccountAdviceAccountDAOPackage(JoinPoint joinPoint) {
@@ -31,7 +42,7 @@ public class DemoLoggingAspect {
             }
         }
 
-        System.out.println("\n ========>>> Executing @Before advice on AccountDAO package with Pointcut Annotation no getter setter \n");
+        System.out.println("\n ========>>> Executing @Before advice on DemoLoggingAspect \n");
     }
 
     /*

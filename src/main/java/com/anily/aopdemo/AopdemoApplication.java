@@ -2,11 +2,12 @@ package com.anily.aopdemo;
 
 import com.anily.aopdemo.dao.AccountDAO;
 import com.anily.aopdemo.dao.MemberShipDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class AopdemoApplication {
@@ -16,12 +17,20 @@ public class AopdemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MemberShipDAO memberShipDAO) {
+	public CommandLineRunner commandLineRunner(AccountDAO accountDAO) {
 		return runner -> {
-
-			demoBeforeAdvice(accountDAO, memberShipDAO);
+			demoAfterReturningAdvice(accountDAO);
+			//demoBeforeAdvice(accountDAO, memberShipDAO);
 
 		};
+	}
+
+	private void demoAfterReturningAdvice(AccountDAO accountDAO) {
+		List<Account> accounts = accountDAO.findAccounts();
+		System.out.println("\n\n demoAfterReturningAdvice");
+		System.out.println("-----");
+		System.out.println(accounts);
+		System.out.println("\n");
 	}
 
 	private void demoBeforeAdvice(AccountDAO accountDAO, MemberShipDAO memberShipDAO) {

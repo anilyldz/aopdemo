@@ -22,6 +22,13 @@ public class DemoLoggingAspect {
         String method = joinPoint.getSignature().toString();
         System.out.println("\n=======>>> Executing @AfterReturning on method : " + method);
         System.out.println("\n=======>>> Result is : " + result);
+        convertAccountNamesToUpperCase(result);
+    }
+
+    private void convertAccountNamesToUpperCase(List<Account> result) {
+        for (Account account : result){
+            account.setName(account.getName().toUpperCase());
+        }
     }
 
     @Before("com.anily.aopdemo.aspect.AopExpressionsUtil.beforeAddAccountAdviceNoGetterSetter()")

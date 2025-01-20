@@ -2,6 +2,8 @@ package com.anily.aopdemo;
 
 import com.anily.aopdemo.dao.AccountDAO;
 import com.anily.aopdemo.dao.MemberShipDAO;
+import com.anily.aopdemo.service.TrafficFortuneService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,16 +19,29 @@ public class AopdemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO) {
+	public CommandLineRunner commandLineRunner(TrafficFortuneService trafficFortuneService) {
 		return runner -> {
-			demoAfterThrowingAdvice(accountDAO);
+			demoAroundAdvice(trafficFortuneService);
+            //demoAfterThrowingAdvice(accountDAO);
 			//demoAfterReturningAdvice(accountDAO);
 			//demoBeforeAdvice(accountDAO, memberShipDAO);
 
 		};
 	}
 
-	private void demoAfterThrowingAdvice(AccountDAO accountDAO) {
+    private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
+        System.out.println("\nMain program demoAroundAdvice");
+
+        System.out.println("Calling getFortune()");
+
+        String data = trafficFortuneService.getFortune();
+
+        System.out.println("My fortune is : " + data);
+
+        System.out.println("Finished");
+    }
+
+    private void demoAfterThrowingAdvice(AccountDAO accountDAO) {
 		List<Account> accounts = null;
 		try {
 			boolean excFlag = true;

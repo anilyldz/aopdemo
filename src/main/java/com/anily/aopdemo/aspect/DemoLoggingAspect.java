@@ -2,10 +2,8 @@ package com.anily.aopdemo.aspect;
 
 import com.anily.aopdemo.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -17,6 +15,23 @@ import java.util.List;
 @Order(1)
 public class DemoLoggingAspect {
 
+    @Around("execution(* com.anily.aopdemo.service.*.getFortune(..))")
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) {
+        try {
+            String method = proceedingJoinPoint.getSignature().toString();
+            System.out.println("\n=======>>> Executing @Around on method : " + method);
+            Long begin = System.currentTimeMillis();
+            Object result = proceedingJoinPoint.proceed();
+            Long end = System.currentTimeMillis();
+            Long duration = end - begin;
+            System.out.println("\n=======>>> Duration : " + duration / 1000.0 + " seconds");
+            return result;
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /*
     @AfterThrowing(pointcut = "execution(* com.anily.aopdemo.dao.AccountDAO.findAccounts(..))",
             throwing = "exception")
     public void afterThrowingFindAccountAdvice(JoinPoint joinPoint, Throwable exception) {
@@ -60,8 +75,6 @@ public class DemoLoggingAspect {
 
         System.out.println("\n ========>>> Executing @Before advice on DemoLoggingAspect \n");
     }
-
-    /*
 
     @After("forDaoPackage()")
     public void afterAddAccountAdviceAccountDAOPackage() {

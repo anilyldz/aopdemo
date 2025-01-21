@@ -21,7 +21,8 @@ public class AopdemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(TrafficFortuneService trafficFortuneService) {
 		return runner -> {
-			demoAroundAdvice(trafficFortuneService);
+			demoAroundAdviceHandleException(trafficFortuneService);
+			//demoAroundAdvice(trafficFortuneService);
             //demoAfterThrowingAdvice(accountDAO);
 			//demoAfterReturningAdvice(accountDAO);
 			//demoBeforeAdvice(accountDAO, memberShipDAO);
@@ -29,7 +30,20 @@ public class AopdemoApplication {
 		};
 	}
 
-    private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
+	private void demoAroundAdviceHandleException(TrafficFortuneService trafficFortuneService) {
+		System.out.println("\nMain program demoAroundAdviceHandleException");
+
+		System.out.println("Calling getFortune()");
+
+		boolean excFlag = true;
+		String data = trafficFortuneService.getFortune(excFlag);
+
+		System.out.println("My fortune is : " + data);
+
+		System.out.println("Finished");
+	}
+
+	private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
         System.out.println("\nMain program demoAroundAdvice");
 
         System.out.println("Calling getFortune()");

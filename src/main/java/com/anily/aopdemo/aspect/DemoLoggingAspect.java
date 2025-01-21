@@ -17,18 +17,20 @@ public class DemoLoggingAspect {
 
     @Around("execution(* com.anily.aopdemo.service.*.getFortune(..))")
     public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) {
+        Object result = null;
         try {
             String method = proceedingJoinPoint.getSignature().toString();
             System.out.println("\n=======>>> Executing @Around on method : " + method);
             Long begin = System.currentTimeMillis();
-            Object result = proceedingJoinPoint.proceed();
+            result = proceedingJoinPoint.proceed();
             Long end = System.currentTimeMillis();
             Long duration = end - begin;
             System.out.println("\n=======>>> Duration : " + duration / 1000.0 + " seconds");
-            return result;
         } catch (Throwable e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            result = "Private AOP helicopter is on the way";
         }
+        return result;
     }
 
     /*

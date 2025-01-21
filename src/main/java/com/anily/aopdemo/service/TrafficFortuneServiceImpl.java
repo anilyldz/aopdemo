@@ -15,4 +15,12 @@ public class TrafficFortuneServiceImpl implements TrafficFortuneService {
         }
         return "Expect heavy traffic this morning";
     }
+
+    @Override
+    public String getFortune(boolean excFlag) {
+        if (excFlag) {
+         throw new RuntimeException("Highway is closed");
+        }
+        return getFortune();
+    }
 }

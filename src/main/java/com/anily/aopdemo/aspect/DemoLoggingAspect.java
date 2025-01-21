@@ -16,7 +16,7 @@ import java.util.List;
 public class DemoLoggingAspect {
 
     @Around("execution(* com.anily.aopdemo.service.*.getFortune(..))")
-    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) {
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result = null;
         try {
             String method = proceedingJoinPoint.getSignature().toString();
@@ -28,7 +28,11 @@ public class DemoLoggingAspect {
             System.out.println("\n=======>>> Duration : " + duration / 1000.0 + " seconds");
         } catch (Throwable e) {
             System.out.println(e.getMessage());
-            result = "Private AOP helicopter is on the way";
+            // Swallow
+            //result = "Private AOP helicopter is on the way";
+
+            // Rethrow
+            throw e;
         }
         return result;
     }
